@@ -1,0 +1,1 @@
+<img src="${request.contextPath}/img/500.gif">

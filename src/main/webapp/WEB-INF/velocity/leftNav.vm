@@ -1,0 +1,35 @@
+<div class="col-sm-3 col-md-2 sidebar">
+         <div class="span12">
+			<div class="row-fluid">
+				<div class="offset1 span2">
+					<!--Sidebar content-->
+					<div class="sidebar-menu">
+					    <div>
+						  <a href="#userMeun" class="nav-header menu-first collapsed" data-toggle="collapse"><i class="icon-user-md icon-large"></i>没加超链接</a>
+                          <ul id="userMeun" class="nav nav-list collapse menu-second">
+                          <li><a href="#"><i class="icon-user"></i> 增加用户</a></li>
+                          <li><a href="#"><i class="icon-edit"></i> 修改用户</a></li>
+                          <li><a href="#"><i class="icon-trash"></i> 删除用户</a></li>
+                          <li><a href="#"><i class="icon-list"></i> 用户列表</a></li>
+						  </ul>
+                         </div>
+						 <div>
+						  <a href="#articleMenu" class="nav-header menu-first collapsed" data-toggle="collapse"><i class="icon-book icon-large"></i> 没加超链接</a>
+						  <ul id="articleMenu" class="nav nav-list collapse menu-second">
+						  <li><a href="#"><i class="icon-pencil"></i> 添加文章</a></li>
+						  <li><a href="#"><i class="icon-list-alt"></i> 文章列表</a></li>
+						  </ul>
+						</div>
+					    <div>
+						  <a href="#b" class="nav-header menu-first collapsed" data-toggle="collapse"><i class="icon-book icon-large"></i>没加超链接</a>
+						  <ul id="b" class="nav nav-list collapse menu-second">
+						  <li><a href="#"><i class="icon-pencil"></i> 添加文章</a></li>
+						  <li><a href="#"><i class="icon-list-alt"></i> 文章列表</a></li>
+						  </ul>
+						</div>
+                   </div>
+				</div>
+			</div>
+		</div>	
+
+</div>

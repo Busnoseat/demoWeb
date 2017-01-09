@@ -1,0 +1,38 @@
+<!-- 添加生成的悬浮层对话框代码 //-->
+<!-- 注意这里定义了ID="regModal"，需要绑定到触发悬浮对话框的"立刻注册"按钮 //-->
+  <div class="modal-dialog">
+    <div class="modal-content">
+	  <div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+	  <h4 class="modal-title" id="myModalLabel">
+	    #if($method=='add')
+	                     添加用户
+	    #else
+	                    修改用户
+	    #end
+	  </h4>
+	  </div>
+      <div class="modal-body">
+        <!-- 这里添加立刻注册表单 //-->
+        
+		<form role="form" class="regform">
+		 
+		  <div class="form-group">
+、			<input  type="hidden" id="userIdModify" value="$!{userVo.userId}" >
+			<label for="userNameModify">用户名</label>
+			<input type="text" class="form-control" id="userNameModify" value="$!{userVo.userName}" placeholder="请输入用户名 ">
+		  </div> 
+		  #if($method=='add')
+	                   <button type="button" class="btn " onclick="addUser()">
+							 保存 
+						</button>
+	      #else
+	              <button type="button" class="btn " onclick="updateUser()">
+							 保存 
+				  </button>        
+	      #end
+		  
+		</form>
+      </div>
+    </div>
+  </div>

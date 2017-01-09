@@ -1,0 +1,59 @@
+<ul class="pagination">
+
+   #set($pre1Page=$pagination.currentPage - 1) 
+   #set($pre2Page=$pagination.currentPage - 2) 
+   #set($pre3Page=$pagination.currentPage - 3) 
+   #set($pre4Page=$pagination.currentPage - 4) 
+   #set($next1Page=$pagination.currentPage + 1) 
+   #set($next2Page=$pagination.currentPage + 2) 
+   #set($next3Page=$pagination.currentPage + 3) 
+   #set($next4Page=$pagination.currentPage + 4)  
+   
+    <li #if($pagination.currentPage==1) class="disabled" #end>
+       <a href="javascript:void(0);" #if($pagination.currentPage>1) onclick="pageChange(1)" #end>&laquo;&laquo;</a>
+    </li>
+    <li #if($pagination.currentPage==1) class="disabled" #end>
+       <a href="javascript:void(0);" #if($pagination.currentPage>1) onclick="pageChange($pre1Page)" #end>&laquo;</a>
+    </li>
+   
+     #if($pre4Page>0 && $pagination.currentPage==$pagination.totalPage)
+      <li><a href="javascript:void(0);" onclick="pageChange($pre4Page)">$pre4Page</a></li>
+    #end
+    #if($pre3Page>0 && ($next1Page==$pagination.totalPage||$pagination.currentPage==$pagination.totalPage))
+      <li><a href="javascript:void(0);" onclick="pageChange($pre3Page)">$pre3Page</a></li>
+    #end
+    #if($pre2Page>0)
+      <li><a href="javascript:void(0);" onclick="pageChange($pre2Page)">$pre2Page</a></li>
+    #end
+    #if($pre1Page>0)
+      <li><a href="javascript:void(0);" onclick="pageChange($pre1Page)">$pre1Page</a></li>
+   
+    #end
+    <li class="active" id="currentPage" value="$pagination.currentPage"><a href="javascript:void(0);">$pagination.currentPage</a></li>
+
+     #if($next1Page<=$pagination.totalPage)
+      <li><a href="javascript:void(0);" onclick="pageChange($next1Page)">$next1Page</a></li>
+     #end
+      #if($next2Page<=$pagination.totalPage)
+      <li><a href="javascript:void(0);" onclick="pageChange($next2Page)">$next2Page</a></li>
+     #end
+      #if($next3Page<=$pagination.totalPage &&$pagination.currentPage==2)
+      <li><a href="javascript:void(0);" onclick="pageChange($next3Page)">$next3Page</a></li>
+     #end
+      #if($next4Page<=$pagination.totalPage &&$pagination.currentPage==1)
+      <li><a href="javascript:void(0);" onclick="pageChange($next4Page)">$next4Page</a></li>
+     #end
+     
+     
+ 
+   <li  #if($pagination.currentPage==$pagination.totalPage) class="disabled" #end>
+      <a href="javascript:void(0);" #if($pagination.currentPage!=$pagination.totalPage) onclick="pageChange($next1Page)" #end >&raquo;</a>
+   </li>
+   <li #if($pagination.currentPage==$pagination.totalPage) class="disabled" #end>
+       <a href="javascript:void(0);" #if($pagination.currentPage!=$pagination.totalPage) onclick="pageChange($pagination.totalPage)" #end>&raquo;&raquo;</a>
+  </li>   
+   <li >
+                 <h5 style="float:left;padding:0px 12px;">共$pagination.totalPage  页  </h5>
+   </li>
+</ul>
+   

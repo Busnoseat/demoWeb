@@ -1,0 +1,231 @@
+
+
+#header()
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8">  
+<title>Hou Bank Framework 实例 - 后台管理</title>
+<link rel="shortcut icon" href="${request.contextPath}/img/hbfavicon.ico" />
+#css("bootstrap/bootstrap.min.css")
+#css("bootstrap/dashboard.css")
+#css("leftNav.css")
+
+</head>
+<body>
+	
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle " data-toggle="collapse"
+					data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">
+				  用户管理系统
+				</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">管理员:</a></li>
+					<li><a href="#">退出</a></li>
+					
+				</ul>
+				
+			</div>
+		</div>
+	</nav>
+
+
+<div class="container-fluid">
+
+	<div class="row">
+		<!-- 左边导航 -->
+		#parse("/leftNav.vm")
+		<!-- 右边 -->
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<h1 class="page-header">用户管理</h1>
+			<!-- 表单 -->
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-1 control-label" for="ds_host">姓名</label>
+					<div class="col-sm-2">
+						<input class="form-control" id="userName" type="text"
+							placeholder="输入要查询的姓名" />
+					</div>
+					
+
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4 text-center">
+						<button type="button" class="btn " onclick="pageChange(1)">
+							<span class="glyphicon glyphicon-search"></span> 查询
+						</button>
+						<button type="button" class="btn " onclick="toModify('','')">
+							<span class="glyphicon glyphicon-plus"></span> 添加
+						</button>
+					</div>
+
+				</div>
+			</form>
+			<!-- 表单 -->
+
+			<!-- 表格+分页 -->
+			<div id="dataTable"></div>
+			<!-- 表格+分页 -->
+		</div>
+		<!-- 右边 -->
+	</div>
+</div>
+
+
+#footer()
+
+<script>
+	var url = "${request.contextPath}/user/list";
+    var addUrl="${request.contextPath}/user/add";
+    var updateUrl="${request.contextPath}/user/update";
+    var deleteUrl="${request.contextPath}/user/delete";
+    var toModifyUrl="${request.contextPath}/user/toModify";
+	pageChange(1);
+	function pageChange(nextPage) {
+		
+		var userName=$("#userName").val();
+		$.ajax({
+			url : url,
+			type : 'POST',
+			data : {
+				currPage : nextPage,
+				userName:userName
+			},
+			dataType : 'html',
+
+			success : function(data, status, xhr) {
+				
+				$("#dataTable").html(data);
+			},
+			error : function(xhr, error, exception) {
+				alert(exception.toString());
+			}
+		});
+
+	}
+	function addUser(){
+		var userNameModify=$("#userNameModify").val();
+		$.ajax({
+			url : addUrl,
+			type : 'POST',
+			data : {
+				userName:userNameModify
+			},
+			dataType : 'json',
+           
+			success : function(data, status, xhr) {
+				if(data.respCode=='000'){
+					alert("添加成功");
+					$("#userName").val(userNameModify);
+					modelHidden();
+					pageChange(1);
+				}else{
+					alert(data.respMessage);
+				}
+				
+			},
+			error : function(xhr, error, exception) {
+				alert(exception.toString());
+			}
+		});
+	}
+	function updateUser(){
+		var userNameModify=$("#userNameModify").val();
+		var userIdModify=$("#userIdModify").val();
+		$.ajax({
+			url : updateUrl,
+			type : 'POST',
+			data : {
+				userId:userIdModify,
+				userName:userNameModify
+			},
+			dataType : 'json',
+           
+			success : function(data, status, xhr) {
+				if(data.respCode=='000'){
+					alert("修改成功");
+					modelHidden();
+					reload();
+				}else{
+					alert(data.respMessage);
+				}
+				
+			},
+			error : function(xhr, error, exception) {
+				alert(exception.toString());
+			}
+		});
+	}
+	function reload(){
+		var currentPage=$("#currentPage").attr("value");
+		pageChange(currentPage);
+	}
+	function deleteUser(userId,userName){
+		if(!confirm("确定删除["+userName+"]用户吗")){
+			return;
+		}
+		$.ajax({
+			url : deleteUrl+"/"+userId,
+			type : 'get',
+			dataType : 'json',
+           
+			success : function(data, status, xhr) {
+				if(data.respCode=='000'){
+					alert("删除成功");
+					reload();
+				}else{
+					alert(data.respMessage);
+				}
+				
+			},
+			error : function(xhr, error, exception) {
+				alert(exception.toString());
+			}
+		});
+	}
+	function toModify(userId,userName){
+		var userNameModify=$("#userNameModify").val();
+		$.ajax({
+			url : toModifyUrl,
+			type : 'POST',
+			data : {
+				userName:userName,
+				userId:userId
+			},
+			dataType : 'html',
+
+			success : function(data, status, xhr) {
+				
+				$("#userModal").html(data);
+				modelShow();
+			},
+			error : function(xhr, error, exception) {
+				alert(exception.toString());
+			}
+		});
+		modelShow();
+		
+	}
+	function modelShow(){
+		$('#userModal').modal('show')
+	} 
+
+    function modelHidden(){
+    	$('#userModal').modal('hide')
+	} 
+</script>
+
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+

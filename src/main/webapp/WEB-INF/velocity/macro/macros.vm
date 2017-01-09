@@ -1,0 +1,18 @@
+#macro(css $cssPath) 
+
+ <link href="${request.contextPath}/css/$cssPath" rel="stylesheet">
+#end
+#macro(js $jsPath) 
+<script type="text/javascript"
+		src="${request.contextPath}/js/$jsPath"></script>
+#end 
+#macro(header)
+
+#end 
+
+#macro(footer)
+#js("jquery.min.js")
+#js("bootstrap.min.js")
+</body>
+</html>
+#end
